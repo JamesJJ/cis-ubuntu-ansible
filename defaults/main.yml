@@ -30,6 +30,8 @@ apt_upgrade: False
 # Only update apt cache if older than this value (in seconds)
 apt_cache_valid_time: 3600
 
+unattended_updates_enabled: True
+
 
 # Section 02
 # Section 02 Level 2

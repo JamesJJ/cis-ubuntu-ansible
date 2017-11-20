@@ -1,11 +1,23 @@
 ---
 
   - name: 1.7.1.1 Ensure message of the day is configured properly (Scored)
-    lineinfile:
+    copy:
       dest: /etc/motd
-      create: yes
-      line: 'Authorized uses only. All activity may be monitored and reported.'
-      state: present
+      owner: 'root'
+      group: 'root'
+      mode: '0644'
+      content: |+
+
+
+        *****************************************************************
+        ***     PRIVATE SYSTEM: SPECIFICALLY AUTHORISED USERS ONLY    ***
+        ***     UNAUTHORIZED USERS MUST DISCONNECT IMMEDIATELY        ***
+        ***                                                           ***
+        ***  Access and use of this system is monitored or recorded   ***
+        ***              Legal action may be taken                    ***
+        *****************************************************************
+
+        
     tags:
       - section1
       - section1.7
@@ -16,6 +28,7 @@
     register: egrep_os_infos
     failed_when: egrep_os_infos.rc == 0
     changed_when: False
+    check_mode: False # run even for "dry-run"
     tags:
       - section1
       - section1.7
@@ -26,6 +39,7 @@
     register: egrep_os_infos
     failed_when: egrep_os_infos.rc == 0
     changed_when: False
+    check_mode: False # run even for "dry-run"
     tags:
       - section1
       - section1.7

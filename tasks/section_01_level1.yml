@@ -684,6 +684,7 @@
         path: "{{ item }}"
         mode: "a+t"
     with_items: "{{sticky_bit_dirs.stdout_lines}}"
+    when: not (item | match("^(/var/lib/docker/|/etc/nomad/data/alloc/)"))
     tags:
       - section1
       - section1.1

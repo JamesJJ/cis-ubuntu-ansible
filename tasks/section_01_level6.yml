@@ -25,6 +25,7 @@
     failed_when: False
     ignore_errors: True
     changed_when: False
+    check_mode: False # run even for "dry-run"
     tags:
       - section1
       - section1.6
@@ -82,6 +83,7 @@
     register: apparmor_status_complain_output
     failed_when: False
     changed_when: False
+    check_mode: False # run even for "dry-run"
     tags:
       - section1
       - section1.6
@@ -91,6 +93,7 @@
     register: apparmor_status_unconfined_output
     failed_when: False
     changed_when: False
+    check_mode: False # run even for "dry-run"
     tags:
       - section1
       - section1.6

@@ -4,6 +4,7 @@
     register: hard_core
     failed_when: False
     changed_when: False
+    check_mode: False # run even for "dry-run"
     tags:
       - section1
       - section1.5
@@ -38,6 +39,7 @@
     failed_when: nx_result.rc == 1
     changed_when: False
     ignore_errors: True
+    check_mode: False # run even for "dry-run"
     tags:
       - section1
       - section1.5

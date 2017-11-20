@@ -9,3 +9,45 @@
     tags:
       - section1
       - section1.8
+
+  - name: Unattended-Updates Package (Not Scored)
+    apt:
+      name: unattended-upgrades
+      state: present
+    when: unattended_updates_enabled == True
+    tags:
+      - non_cis
+
+  - name: Unattended-Updates config1 (Not Scored)
+    lineinfile:
+      dest: /etc/apt/apt.conf.d/50unattended-upgrades
+      state: present
+      create: yes
+      owner: 'root'
+      group: 'root'
+      mode: '0644'
+      line: "{{ item }}"
+    with_items:
+      - Unattended-Upgrade::MinimalSteps "true";
+      - Unattended-Upgrade::Package-Blacklist { "docker-ce"; }
+    when: unattended_updates_enabled == True
+    tags:
+      - non_cis
+
+  - name: Unattended-Updates config2 (Not Scored)
+    lineinfile:
+      dest: /etc/apt/apt.conf.d/20auto-upgrades
+      state: present
+      create: yes
+      owner: 'root'
+      group: 'root'
+      mode: '0644'
+      line: "{{ item }}"
+    with_items:
+      - APT::Periodic::Update-Package-Lists "1";
+      - APT::Periodic::Download-Upgradeable-Packages "1";
+      - APT::Periodic::Unattended-Upgrade "1";
+      - APT::Periodic::RandomSleep "86000";
+    when: unattended_updates_enabled == True
+    tags:
+      - non_cis

@@ -13,9 +13,10 @@
 
   - command: grep "^password" /boot/grub/grub.cfg
     register: boot_password
-    failed_when: false
-    ignore_errors: yes 
+    failed_when: boot_password.rc != 0
+    ignore_errors: True
     changed_when: False
+    check_mode: False # run even for "dry-run"
     tags:
       - section1
       - section1.4
@@ -42,6 +43,7 @@
     failed_when: false
     ignore_errors: True
     changed_when: False
+    check_mode: False # run even for "dry-run"
     tags:
       - section1
       - section1.4
